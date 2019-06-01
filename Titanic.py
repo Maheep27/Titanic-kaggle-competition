@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn import svm
 
 #load training data
-train_data=pd.read_csv("/home/maheep/Videos/titanic/train.csv")
+train_data=pd.read_csv("train.csv")
 #drop few features 
 train_data = train_data.drop(["PassengerId","Name","Ticket","Cabin"],axis=1)
 
@@ -41,21 +41,9 @@ array = train_data.values
 X_train = array[:,1:8]
 Y_train = array[:,0]
 
-#create a OneHotEncoder object, and fit it to all of training data
-
-# 1. INSTANTIATE
-enc = preprocessing.OneHotEncoder()
-
-# 2. FIT
-enc.fit(X_train)
-
-# 3. Transform
-onehotlabels_train = enc.transform(X_train).toarray()
-onehotlabels_train.shape
-
 #load test data
 
-test_data=pd.read_csv("/home/maheep/Videos/titanic/test.csv")
+test_data=pd.read_csv("test.csv")
 #drop few features 
 test_data = test_data.drop(["PassengerId","Name","Ticket","Cabin"],axis=1)
 
@@ -92,18 +80,6 @@ test_data['Fare']=test_data["Fare"].astype(dtype=np.int64)
 array = test_data.values
 X_test = array[:,0:7]
 
-#create a OneHotEncoder object, and fit it to all of testing data
-
-# 1. INSTANTIATE
-enc = preprocessing.OneHotEncoder()
-
-# 2. FIT
-enc.fit(X_test)
-
-# 3. Transform
-onehotlabels_test = enc.transform(X_test).toarray()
-onehotlabels_test.shape
-
 # Create SVM classification object 
 model = svm.SVC(kernel='linear', gamma=1) 
 #fit training data into model
@@ -114,7 +90,7 @@ predicted= model.predict(X_test)
 
 
 #For creating submission file
-test_data=pd.read_csv("/home/maheep/Videos/titanic/test.csv")
+test_data=pd.read_csv("test.csv")
 
 #create submission file
 submission = np.empty((418,2),dtype=int)
