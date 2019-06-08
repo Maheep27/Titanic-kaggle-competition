@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
-from sklearn import preprocessing
 from sklearn.preprocessing import LabelEncoder
-from sklearn import svm
+from sklearn.ensemble import RandomForestClassifier
 
 #load training data
 train_data=pd.read_csv("train.csv")
@@ -80,8 +79,9 @@ test_data['Fare']=test_data["Fare"].astype(dtype=np.int64)
 array = test_data.values
 X_test = array[:,0:7]
 
-# Create SVM classification object 
-model = svm.SVC(kernel='linear', gamma=1) 
+# Create RandomForestClassifier classification object 
+model = RandomForestClassifier(n_estimators=1000, max_depth=4,random_state=0)
+
 #fit training data into model
 model.fit(X_train, Y_train)
 
